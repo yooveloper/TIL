@@ -47,4 +47,33 @@
   // maker.coffeeBeans = -34; // 외부에서 class 의 object 상태를 유효하지않은 상태로 만들수있는건 잘못 되었음.
 
   maker.fillCoffeeBeans(12);
+
+  class User {
+    get fullName(): string {
+      return `${this.firstName} ${this.lastName}`;
+    }
+
+    private internalAge = 4;
+    get age(): number {
+      return this.internalAge;
+    }
+
+    set age(num: number) {
+      if (num < 0) {
+        throw new Error("invalid");
+      }
+      this.internalAge = num;
+    }
+
+    constructor(private firstName: string, private lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+  }
+
+  const user = new User("Steve", "Jobs");
+  console.log(user.fullName);
+
+  user.age = 6;
+  console.log(user.age);
 }
